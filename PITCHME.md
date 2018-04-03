@@ -1,4 +1,4 @@
-## Programming Smart Contracts with Solidity 
+## Brief history of the blockchain + Ethereum + Solidity + Smart Contracts
 
 ---
 
