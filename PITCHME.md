@@ -2,7 +2,7 @@
 
 ---
 
-## Miguel Vieira - @emota7
+## Miguel Vieira - @vieirapt
 Co-Founder and CTO eSolidar
 
 vieira@esolidar.com
@@ -21,3 +21,9 @@ vieira@esolidar.com
 * What is an ERC20 token
 * ICO on Ethereum 
 * Questions 
+
+---
+## #eSolidarDEV
+#### Telegram - http://t.me/eSolidarDEV
+
++++
