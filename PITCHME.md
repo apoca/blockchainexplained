@@ -38,7 +38,7 @@ vieira@esolidar.com
 ### Blockchain
 
 Blockchain Network
-![blockchain_network_flow](assets/blockchain_overviews.png)
+![blockchain_network_flow](assets/images/blockchain_overviews.png)
 +++
 
 ### Blockchain
