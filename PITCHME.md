@@ -93,7 +93,7 @@ Blockchain Network
 * Two kinds of accounts 
   * External Accounts (wallets controlled by humans - private keys)
   * Contract Accounts (controlled by code)
-  * every account has a balance 
+  * every accounts has a balance 
 +++
 
 ### Ethereum
@@ -108,6 +108,7 @@ Blockchain Network
 * Code execution costs GAS 
 * Transaction is a message sent from one account to another and can have a data
   payload
++++
 
 ### Ethereum
 * Transactions
@@ -117,7 +118,6 @@ Blockchain Network
   * An optional data field
   * A STARTGAS value, representing the maximum number of computational steps the transaction execution is allowed to take
   * A GASPRICE value, representing the fee the sender pays per computational step
-
 +++
 
 ### Ethereum
@@ -127,7 +127,6 @@ Blockchain Network
   * The amount of ether to transfer alongside the message
   * An optional data field
   * A STARTGAS value
-
 +++
 
 ### Ethereum
@@ -136,7 +135,6 @@ Blockchain Network
   * Storage
   * Logs
   * Events
-
 +++
 
 ### Ethereum
@@ -145,7 +143,6 @@ Blockchain Network
   * The code consists of a series of bytes, where each byte represents an operation.
   * In general, code execution is an infinite loop (Turing-Completeness)
   * ...until the end of the code is reached or an error or STOP or RETURN instruction is detected.
-
 +++
 
 ### Ethereum
@@ -153,7 +150,10 @@ Blockchain Network
   * The <b>stack</b>, a last-in-first-out container to which values can be pushed and popped
   * <b>Memory</b>, an infinitely expandable byte array
   * The contract's long-term <b>storage</b>, a key/value store. Unlike stack and memory, which reset after computation ends, storage persists for the long term.
-
 +++
   
 ---
+
+## Smart Contracts 
+
++++
