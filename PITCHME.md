@@ -56,3 +56,6 @@ Blockchain Network
 +++
 
 ### Blockchain
+![Video](https://www.youtube.com/embed/6WG7D47tGb0)
+
+---
