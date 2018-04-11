@@ -43,15 +43,16 @@ Blockchain Network
 
 ### Blockchain
 
-<p class="lowernote">
-  Blockchain principle
-</p>
-<ul class="lowernote">
-  <li>1. A user wants to pay another user some bitcoins, he broadcasts a transaction to the network. </li> 
-  <li>2. Miners add the transaction as they receive it to their current block, the one they are currently working on.</li>
-  <li>3. Randomly, one of the miner may win the lottery and "mine" the block (we'll get back to that).</li>
-  <li>4. At that moment, this new "definitive" block is broadcasted to the network and added to averyone's copy of the blockchain.</li>
-</ul>
+#### Blockchain principle
+* 1. A user wants to pay another user some bitcoins, he broadcasts a transaction to the network.
+* 2. Miners add the transaction as they receive it to their current block, the one they are currently working on.
++++
+
+### Blockchain
+
+#### Blockchain principle
+* 3. Randomly, one of the miner may win the lottery and "mine" the block (we'll get back to that).
+* 4. At that moment, this new "definitive" block is broadcasted to the network and added to averyone's copy of the blockchain.
 +++
 
 ### Blockchain
