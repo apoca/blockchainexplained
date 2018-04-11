@@ -27,3 +27,16 @@ vieira@esolidar.com
 #### Telegram - http://t.me/eSolidarDEV
 
 +++
+
+### Blockchain
+* Blockchain Is Like a Public ledger of transactions
+* Blockchain does not want to trust a third party to administer the ledger
+* Blockchain Is Like Google Docs
+* Blockchain Is Like DNA
++++
+
+### Blockchain
+
+Blockchain Network
+![blockchain_network_flow](assets/blockchain_overviews.png)
++++
