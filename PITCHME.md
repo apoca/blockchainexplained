@@ -26,13 +26,13 @@ vieira@esolidar.com
 ## #eSolidarDEV
 #### Telegram - http://t.me/eSolidarDEV
 
-+++
+---
 
 ### Blockchain
-* Blockchain Is Like a Public ledger of transactions
+* Blockchain is like a public ledger of transactions
 * Blockchain does not want to trust a third party to administer the ledger
-* Blockchain Is Like Google Docs
-* Blockchain Is Like DNA
+* Blockchain is like Google Docs
+* Blockchain is like DNA
 +++
 
 ### Blockchain
@@ -40,3 +40,13 @@ vieira@esolidar.com
 Blockchain Network
 ![blockchain_network_flow](assets/blockchain_overviews.png)
 +++
+
+### Blockchain
+## Blockchain principle
+1. A user wants to pay another user some bitcoins, he broadcasts a transaction to the network.
+2. Miners add the transaction as they receive it to their current block, the one they are currently working on.
+3. Randomly, one of the miner may win the lottery and "mine" the block (we'll get back to that).
+4. At that moment, this new "definitive" block is broadcasted to the network and added to averyone's copy of the blockchain.
++++
+
+### Blockchain
