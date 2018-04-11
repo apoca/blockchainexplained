@@ -59,3 +59,55 @@ Blockchain Network
 ![Video](https://www.youtube.com/embed/6WG7D47tGb0)
 
 ---
+
+### Ethereum 
+
+   <div class="left">
+     Ethereum Network
+     <img src="https://s3-eu-west-1.amazonaws.com/www.yarilabs.com/assets/img/nodes.png" alt="Ethereum Network" height="400">
+  </div>
+
+  <div class="right">
+    <p>
+      “Each node of the Ethereum network hosts a blockchain database and 
+      a node client capable of executing application code stored on blockchain.
+      Nodes communicate through <span class="highlight">Wire protocol</span> and expose same interface but 
+      can be implemented in different languages.”
+    </p>
+    <br>
+    <p class="lowernote">
+      Excerpt From: Roberto Infante. “Building Ethereum ÐApps” 
+    </p>
+  </div>
+
++++
+
+### Ethereum
+* Bitcoin like distributed ledger 
+* Cryptocurrency (Ether)
+* Ethereum Virtual Machine (EVM) 
+* Turing complete
++++
+
+### Ethereum
+* Ethereum Blockchain
+  * Contracts (code) 
+  * Storage
+  * Logs
+  * Events
+
++++
+
+### Ethereum
+* Two kinds of accounts 
+  * External Accounts (wallets controlled by humans)
+  * Contract Accounts (controlled by code)
+  * every account has a balance 
++++
+
+### Ethereum
+* Code execution costs GAS 
+* Transaction is a message sent from one account to another and can have a data
+  payload
+  
+---
