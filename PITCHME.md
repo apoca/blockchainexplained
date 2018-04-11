@@ -84,9 +84,50 @@ Blockchain Network
 
 ### Ethereum
 * Bitcoin like distributed ledger 
-* Cryptocurrency (Ether)
+* Cryptocurrency (Ether - FUEL)
 * Ethereum Virtual Machine (EVM) 
-* Turing complete
+* Turing-Completeness
++++
+
+### Ethereum
+* Two kinds of accounts 
+  * External Accounts (wallets controlled by humans - private keys)
+  * Contract Accounts (controlled by code)
+  * every account has a balance 
++++
+
+### Ethereum
+* Ethereum account contains four fields 
+  * The nonce, a counter used to make sure each transaction can only be processed once
+  * The account's current ether balance
+  * The account's contract code, if present
+  * The account's storage (empty by default)
++++
+
+### Ethereum
+* Code execution costs GAS 
+* Transaction is a message sent from one account to another and can have a data
+  payload
+
+### Ethereum
+* Transactions
+  * The recipient of the message
+  * A signature identifying the sender
+  * The amount of ether to transfer from the sender to the recipient
+  * An optional data field
+  * A STARTGAS value, representing the maximum number of computational steps the transaction execution is allowed to take
+  * A GASPRICE value, representing the fee the sender pays per computational step
+
++++
+
+### Ethereum
+* Messages
+  * The sender of the message (implicit)
+  * The recipient of the message
+  * The amount of ether to transfer alongside the message
+  * An optional data field
+  * A STARTGAS value
+
 +++
 
 ### Ethereum
@@ -99,15 +140,20 @@ Blockchain Network
 +++
 
 ### Ethereum
-* Two kinds of accounts 
-  * External Accounts (wallets controlled by humans)
-  * Contract Accounts (controlled by code)
-  * every account has a balance 
+* Code Execution (EVM)
+  * The code in Ethereum contracts is written in a low-level (bytecode) to EVM.
+  * The code consists of a series of bytes, where each byte represents an operation.
+  * In general, code execution is an infinite loop (Turing-Completeness)
+  * ...until the end of the code is reached or an error or STOP or RETURN instruction is detected.
+
 +++
 
 ### Ethereum
-* Code execution costs GAS 
-* Transaction is a message sent from one account to another and can have a data
-  payload
+* The operations have access to three types of space in which to store data:
+  * The <b>stack</b>, a last-in-first-out container to which values can be pushed and popped
+  * <b>Memory</b>, an infinitely expandable byte array
+  * The contract's long-term <b>storage</b>, a key/value store. Unlike stack and memory, which reset after computation ends, storage persists for the long term.
+
++++
   
 ---

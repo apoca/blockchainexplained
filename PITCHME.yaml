@@ -1,3 +1,3 @@
-theme : moon
-footnote: "Braga Blockchain (Miguel Vieira)"
+theme : night
+footnote: "Blockchain | Ethereum | Smart Contracts"
 theme-override: assets/css/custom.css
