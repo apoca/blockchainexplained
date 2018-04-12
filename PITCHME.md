@@ -274,9 +274,6 @@ Mappings and data type address
 +++
 
 ### Solidity 
-Function modifiers
-
-### Solidity 
 Function declarations 
 
 ```javascript
@@ -361,6 +358,7 @@ More on functions Modifiers
   }
 ```
 +++
+
 ### Solidity 
 Payable function Modifier
 
@@ -371,6 +369,7 @@ Payable function Modifier
   }
 ```
 +++
+
 ### Solidity 
 Events 
 <p class="lowernote">
