@@ -265,11 +265,16 @@ Mappings and data type address
   // Or could be used to store / lookup usernames based on userId
   mapping (uint => string) userIdToName;
 ```
+
 <ul class="lowernote">
   <li> first example, the key is an address and the value is a uint</li> 
   <li> second example, the key is a uint and the value is a string</li>
 </ul>
+
 +++
+
+### Solidity 
+Function modifiers
 
 ### Solidity 
 Function declarations 
@@ -292,6 +297,26 @@ Function declarations
 
 ### Solidity 
 More about functions 
+
+<p class="lowernote">
+  So in this case we could declare it as a <b>view</b> function, meaning it's only viewing the data but not modifying it: 
+</p>
+
+```javascript
+function sayHello() public view returns (string) {
+```
+
+<p class="lowernote">
+    Solidity also contains <b>pure</b> functions, which means you're not even accessing any data in the app. Consider the following:
+</p>
+
+```javascript
+function _multiply(uint a, uint b) private pure returns (uint) {
+  return a * b;
+}
+```
+
++++
 
 ```javascript
   string greeting = "Whazaaa ?";
@@ -326,7 +351,7 @@ Function Modifiers
 ### Solidity 
 More on functions Modifiers
 
-``` javascript
+```javascript
   modifier onlyAfter(uint _time) { require (now >= _time); _; }
   modifier onlyOwner { require(msg.sender == owner) _; }
 
@@ -339,7 +364,7 @@ More on functions Modifiers
 ### Solidity 
 Payable function Modifier
 
-``` javascript
+```javascript
   // All functions that receive ether must be marked 'payable'
   function depositEther() public payable {
       balances[msg.sender] += msg.value;
@@ -376,6 +401,99 @@ Events
 +++
 
 ### Solidity 
+Inheritance
+<p class="lowernote">
+  One feature of Solidity that makes this more manageable is contract inheritance:
+</p>
+
+```javascript
+contract Doge {
+  function catchphrase() public returns (string) {
+    return "So Wow CryptoDoge";
+  }
+}
+
+contract BabyDoge is Doge {
+  function anotherCatchphrase() public returns (string) {
+    return "Such Moon BabyDoge";
+  }
+}
+```
++++
+
+### Solidity 
+Import
+<p class="lowernote">
+  When you have multiple files and you want to import one file into another, Solidity uses the import keyword:
+</p>
+
+```javascript
+import "./someothercontract.sol";
+
+contract newContract is SomeOtherContract {
+
+}
+```
+
++++
+
+### Solidity 
+More on Function Visibility
+<p class="lowernote">
+  <b>Internal</b> is the same as private, except that it's also accessible to contracts that inherit from this contract.
+  <b>External</b> is similar to public, except that these functions can ONLY be called outside the contract — they can't be called by other functions inside that contract.
+</p>
+
+```javascript
+contract Sandwich {
+  uint private sandwichesEaten = 0;
+
+  function eat() internal {
+    sandwichesEaten++;
+  }
+}
+
+contract BLT is Sandwich {
+  uint private baconSandwichesEaten = 0;
+
+  function eatWithBacon() public returns (string) {
+    baconSandwichesEaten++;
+    // We can call this here because it's internal
+    eat();
+  }
+}
+```
+
++++
+
+### Solidity 
+Using an Interface
+<p class="lowernote">
+  In this way, your contract can <b>interact</b> with any other contract on the Ethereum blockchain, as long they expose those functions as public or external.
+</p>
+
+```javascript
+contract NumberInterface {
+  function getNum(address _myAddress) public view returns (uint);
+}
+
+contract MyContract {
+  address NumberInterfaceAddress = 0xab38... 
+  // ^ The address of the FavoriteNumber contract on Ethereum
+  NumberInterface numberContract = NumberInterface(NumberInterfaceAddress);
+  // Now `numberContract` is pointing to the other contract
+
+  function someFunction() public {
+    // Now we can call `getNum` from that contract:
+    uint num = numberContract.getNum(msg.sender);
+    // ...and do something with `num` here
+  }
+}
+```
+
++++
+
+### Solidity 
 Important global variables 
 
 ```javascript
@@ -390,7 +508,12 @@ Important global variables
   msg.gas; // remaining gas
 ```
 ```javascript
-now; // current time (approximately) - uses Unix time
+lastUpdated = now;
+// Will return `true` if 5 minutes have passed since `updateTimestamp` was 
+// called, `false` if 5 minutes have not passed
+function fiveMinutesHavePassed() public view returns (bool) {
+  return (now >= (lastUpdated + 5 minutes));
+}
 ```
 +++
 
