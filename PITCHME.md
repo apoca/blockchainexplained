@@ -292,8 +292,7 @@ Function declarations
 ```
 +++
 
-### Solidity 
-More about functions 
+
 
 <p class="lowernote">
   So in this case we could declare it as a <b>view</b> function, meaning it's only viewing the data but not modifying it: 
@@ -314,6 +313,9 @@ function _multiply(uint a, uint b) private pure returns (uint) {
 ```
 
 +++
+
+### Solidity 
+More about functions
 
 ```javascript
   string greeting = "Whazaaa ?";
