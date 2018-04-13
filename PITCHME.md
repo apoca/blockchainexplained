@@ -500,7 +500,7 @@ contract MyContract {
 ### Solidity 
 Require
 
-For that we use require. require makes it so that the function will throw an error and stop executing if some condition is not true:
+For that we use <b>require</b>. <b>Require</b> makes it so that the function will throw an error and stop executing if some condition is not true:
 
 ```javascript
 function sayHiToVitalik(string _name) public returns (string) {
@@ -522,7 +522,9 @@ Thus <b>require</b> is quite useful for verifying certain conditions that must b
 ### Solidity 
 Storage vs Memory
 
-<b>Storage</b> refers to variables stored permanently on the blockchain. <b>Memory</b> variables are temporary, and are erased between external function calls to your contract. Think of it like your computer's hard disk vs RAM.
+<p class="lowernote">
+    <b>Storage</b> refers to variables stored permanently on the blockchain.
+</p>
 
 ```javascript
 pragma solidity ^0.4.19;
@@ -540,6 +542,15 @@ contract ZombieFeeding is ZombieFactory {
 }
 ```
 
+++++
+
+### Solidity 
+Storage vs Memory
+
+<p class="lowernote">
+    <b>Memory</b> variables are temporary, and are erased between external function calls to your contract. Think of it like your computer's hard disk vs RAM.
+</p>
+
 ```javascript
 function getZombiesByOwner(address _owner) external view returns(uint[]) {
     uint[] memory result = new uint[](ownerZombieCount[_owner]);
@@ -551,7 +562,6 @@ function getZombiesByOwner(address _owner) external view returns(uint[]) {
       }
     }
 ```
-
 
 +++
 
