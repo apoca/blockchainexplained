@@ -720,6 +720,8 @@ smartcontract assigns them the tokens automatically.
 
 To see an example of a crowdsale contract check: https://ethereum.org/crowdsale
 
++++
+
 ### Example in practice
 How To Create Token and Initial Coin Offering Contracts Using Truffle + Zeppelin Solidity
 
