@@ -882,7 +882,10 @@ Finally in this tab of terminal run next command:
 ```javascript
 $ eth.syncing
 ```
-It can return something like this:
+
+<p class="lowernote">
+    It can return something like this:
+</p>
 
 ```
 {
@@ -893,8 +896,9 @@ It can return something like this:
  startingBlock: 0
 }
 ```
-
-What means what last block was loaded or can return «<b>false</b>» what means that full chain was loaded.
+<p class="lowernote">
+    What means what last block was loaded or can return «<b>false</b>» what means that full chain was loaded.
+</p>
 +++
 
 ### Deploy contracts (continue)
@@ -910,12 +914,16 @@ Go to https://rinkeby.etherscan.io
 ### Deploy contracts (continue)
 Note that we are not deploying JotaCoin. This is because once JotaCoinCrowdsale deploys it will create JotaCoin. Now back to the terminal tab where you installed Truffle, run the commands:
 
-Finally in this tab of terminal run next command:
-```
+<p class="lowernote">
+    Finally in this tab of terminal run next command:
+</p>
+
+```javascript
 $ personal.unlockAccount("0xfb0ea2323b38cb18ac2759a6a0e55bb8ec7572ab")
 ```
-
-Finally to deploy your contract, use command:
+<p class="lowernote">
+    Finally to deploy your contract, use command:
+</p>
 
 ```javascript
 $ truffle compile
@@ -943,6 +951,7 @@ Run `$ truffle console`
 > crowdsale.token().then(address => { tokenAddress = address } )
 > tokenAddress
 ```
+
 +++
 
 ### Deploy contracts (continue)
@@ -967,17 +976,17 @@ Alright, let’s buy some GUS tokens.
 ### Deploy contracts (continue)
 Buying JTC tokens
 
-```
+```javascript
 > jotaCoinCrowdsale.deployed().then(instance => instance.sendTransaction({ from: purchaser, value: web3.toWei(5, "ether")}))
 ```
 
-```
+```javascript
 // Check the amount of JTC tokens for purchaser again. It should have some now.
 > jotaCoinInstance.balanceOf(purchaser).then(balance => purchaserJotaTokenBalance = balance.toString(10))
 '5000000000000000000000'
 ```
 
-```
+```javascript
 // When we created our token we made it with 18 decimals, which the same as what ether has. That's a lot of zeros, let's display without the decimals:
 > web3.fromWei(purchaserJotaTokenBalance, "ether")
 '5000'
@@ -989,17 +998,22 @@ Buying JTC tokens
 ### Extra
 Send ETH from geth console
 
-First, I list the accounts and then see how much ETH I have in the default account.
-```
+<p class="lowernote">
+    First, I list the accounts and then see how much ETH I have in the default account.
+</p>
+
+```javascript
 $ personal.listAccounts
 ["0xfb0ea2323b38cb18ac2759a6a0e55bb8ec7572ab", "0x1f366a6ff3959b778f143c20244f7addf2a642ee"]
 
 $ web3.fromWei(eth.getBalance(eth.coinbase));
 3
 ```
+<p class="lowernote">
+    Then I send 0.25 ETH to each account.
+</p>
 
-Then I send 0.25 ETH to each account.
-```
+```javascript
 $ eth.sendTransaction({from:eth.coinbase, to:"0x1f366a6ff3959b778f143c20244f7addf2a642ee", value: web3.toWei(0.25, "ether")});
   "0x225f0bab07a7782d8d45f1a1e57c7ee7e6c0796d46a7fb664a07dd00cc5a2d8f"
 ```
