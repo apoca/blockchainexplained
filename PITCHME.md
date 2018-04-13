@@ -542,7 +542,7 @@ contract ZombieFeeding is ZombieFactory {
 }
 ```
 
-++++
++++
 
 ### Solidity 
 Storage vs Memory
