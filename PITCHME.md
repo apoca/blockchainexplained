@@ -713,12 +713,11 @@ and now its being used for selling ERC20 (ethereum tokens).
 rules of the token sale.
 
 +++
+
 ### ICO
 To buy tokens from a smart contract participants should transfer ethereum
 directly from their wallets to the smart contract address so that the
 smartcontract assigns them the tokens automatically. 
-
-To see an example of a crowdsale contract check: https://ethereum.org/crowdsale
 
 +++
 
@@ -796,17 +795,18 @@ contract JotaCoinCrowdsale is CappedCrowdsale {
 ```
 
 <p class="lowernote">
-    Note that JotaCoinCrowdsale inherits from TimedCrowdsale and MintedCrowdsale. In order to deploy JotaCoinCrowdsale, we must give a few parameters to its constructor function as per the Crowdsale and TimeCrowdsale contracts, i.e. openingTime and closingTime timestamps, the rate of token per ether rate, the token address itself and the wallet address of the contract owner(s).
+    Note that JotaCoinCrowdsale inherits from CappedCrowdsale. In order to deploy JotaCoinCrowdsale, we must give a few parameters to its constructor function as per the Crowdsale and TimeCrowdsale contracts, i.e. openingTime and closingTime timestamps, the rate of token per ether rate, the token address itself and the wallet address of the contract owner(s).
 </p>
 +++
 
-### Create a truffle migration (continue)
+### Create a truffle migration
 
 ```javascript
 $ truffle create migrate
 ```
-
+<p class="lowernote">
 `migrations/2_deploy_contracts.js` and modify it to this:
+</p>
 
 ```javascript
 let JotaCoin = artifacts.require("JotaCoin.sol");
