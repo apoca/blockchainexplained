@@ -691,8 +691,9 @@ ERC stands for Ethereum Request for Comments
      event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
  }
 ```
-
-Token & Crowdsale:
+<p class="lowernote">
+    Token & Crowdsale:
+</p>
 
 <ul class="lowernote">
   <li> https://www.ethereum.org/token </li> 
@@ -1021,4 +1022,14 @@ $ eth.sendTransaction({from:eth.coinbase, to:"0x1f366a6ff3959b778f143c20244f7add
 ---
 
 ## Questions ?
-### Miguel Vieira - eSolidar
+
+<p class="lowernote">
+    Next Steps:
+</p>
+
+<ul class="lowernote">
+  <li> Join us on http://t.me/eSolidarDEV (Telegram)</li>
+  <li> Exemplify how to add JTC (tokens) to our own address (ex: metamask) ?</li>
+  <li> Build a interactive DAPP to coonect with smartcontracts? </li> 
+  <li> ... </li>  
+</ul>
