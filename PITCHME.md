@@ -537,3 +537,392 @@ function fiveMinutesHavePassed() public view returns (bool) {
   <li> <span class="highlight">Cost of Gas:</span> the fuel Ethereum DApps run on</li>
 </ul>
 ---
+
+## What is an ERC20 token?
++++
+
+### ERC20 token
+ERC stands for Ethereum Request for Comments
+
+```javascript
+  contract MyToken {
+      /* This creates an array with all balances */
+      mapping (address => uint256) public balanceOf;
+
+      /* Initializes contract with initial supply tokens to the creator */
+      function MyToken(
+          uint256 initialSupply
+          ) {
+          // Give the creator all initial tokens
+          balanceOf[msg.sender] = initialSupply;
+      }
+```
++++
+
+### ERC20 token (continuation)
+
+```javascript
+      /* Send coins */
+      function transfer(address _to, uint256 _value) {
+          // Check if the sender has enough
+          require(balanceOf[msg.sender] >= _value);
+          // Check for overflows
+          require(balanceOf[_to] + _value >= balanceOf[_to]); 
+          balanceOf[msg.sender] -= _value;
+          balanceOf[_to] += _value;
+      }
+  }
+```
+<p class="lowernote"> (from ethereum.org)</p>
++++
+
+### ERC20 token
+<p class="lowernote">
+  An ERC20 token implements the following API
+</p>
+<ul class="lowernote">
+  <li> name </li> 
+  <li> symbol</li>
+  <li> decimals</li>
+  <li> transfer(to, value)</li>
+  <li> transferFrom(from, to, value)</li>
+  <li> approve(spender, value)</li>
+  <li> approveAndCall(spender, value, extraData)</li>
+  <li> burn(value)</li>
+  <li> burnFrom(from, value)</li>
+  <li>  </li>
+  <li> plus trigger a set of events </li>
+</ul>
+<p class="lowernote">
+  a complete spec of a ERC20 Token check  https://ethereum.org/token
+  and https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
+</p>
+<!-- There are thousands of ethereum based tokens.(https://etherscan.io/tokens) -->
++++
+
+### ERC20 token
+
+```javascript
+  contract ERC20Interface {
+     function totalSupply() public constant returns (uint);
+     function balanceOf(address tokenOwner) 
+              public constant returns (uint balance);
+     function allowance(address tokenOwner, address spender) 
+              public constant returns (uint remaining);
+     function transfer(address to, uint tokens) 
+              public returns (bool success);
+     function approve(address spender, uint tokens)
+              public returns (bool success);
+     function transferFrom(address from, address to, uint tokens)
+              public returns (bool success);
+ 
+     event Transfer(address indexed from, address indexed to, uint tokens);
+     event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+ }
+```
+---
+### How to make an ICO (crowdsale) contract
++++
+
+### What really is an ICO ?
+
+* An ICO - Initial Coin Offer should really be called:
+token generation event (TGE) as ICO is a term initially coined for currencies
+and now its being used for selling ERC20 (ethereum tokens).
+* And ICO should be done automatically via a SmartContract that implements the
+rules of the token sale.
+
++++
+### ICO
+To buy tokens from a smart contract participants should transfer ethereum
+directly from their wallets to the smart contract address so that the
+smartcontract assigns them the tokens automatically. 
+
+To see an example of a crowdsale contract check: https://ethereum.org/crowdsale
+
+### Example in practice
+How To Create Token and Initial Coin Offering Contracts Using Truffle + Zeppelin Solidity
+
++++
+
+### Example in practice (continue)
+installing some dependencies:
+
+```javascript
+$ npm install -g ganache-cli
+$ npm install -g truffle
+$ mkdir example_practice && cd example_practice
+$ truffle init
+$ npm install zeppelin-solidity@1.7.0
+```
+
++++
+
+### Example in practice (continue)
+First step is to create the token contract.
+```javascript
+$ truffle init
+```
+
+<p class="lowernote">
+  Side note: If we want to actually create the contract on the Ethereum testnet or main net you would have to use something like <b>Geth</b>.
+  Geth (can be launched with a json-rpc server that exposes the <b>JSON-RPC API</b>) is the the command line interface for running a full ethereum node implemented in Go.
+</p>
+
++++
+
+### Create Token (continue)
+The idea is to have a token where the supply is controlled by an owner who can emit tokens and assign them. For a better look at what this contract does, check it at node_modules/zeppelin-solidity/contracts/token/ERC20/MintableToken.sol
+
+```javascript
+pragma solidity ^0.4.17;
+
+import "zeppelin-solidity/contracts/token/ERC20/MintableToken.sol";
+
+contract JotaCoin is MintableToken {
+  string public name = "JOTA COIN";
+  string public symbol = "JTC";
+  uint8 public decimals = 18;
+}
+
+```
++++
+
+### Create Crowdsale (continue)
+The following step is to create the Crowdsale contract.
+
+```javascript
+pragma solidity ^0.4.17;
+
+import "./JotaCoin.sol";
+import "zeppelin-solidity/contracts/crowdsale/CappedCrowdsale.sol";
+
+contract JotaCoinCrowdsale is CappedCrowdsale {
+  // MintableToken token = createTokenContract();
+  function JotaCoinCrowdsale(uint256 _startTime, uint256 _endTime, uint256 _rate, uint256 _cap, address _wallet) public
+    CappedCrowdsale(_cap)
+    Crowdsale(_startTime, _endTime, _rate, _wallet)
+  {
+
+  }
+
+  function createTokenContract() internal returns (MintableToken) {
+    return new JotaCoin();
+  }
+}
+
+```
+
+<p class="lowernote">
+    Note that JotaCoinCrowdsale inherits from TimedCrowdsale and MintedCrowdsale. In order to deploy JotaCoinCrowdsale, we must give a few parameters to its constructor function as per the Crowdsale and TimeCrowdsale contracts, i.e. openingTime and closingTime timestamps, the rate of token per ether rate, the token address itself and the wallet address of the contract owner(s).
+</p>
++++
+
+### Create a truffle migration (continue)
+
+```javascript
+$ truffle create migrate
+```
+
+`migrations/2_deploy_contracts.js` and modify it to this:
+
+```javascript
+let JotaCoin = artifacts.require("JotaCoin.sol");
+let JotaCoinCrowdsale = artifacts.require("JotaCoinCrowdsale.sol");
+let Crowdsale = artifacts.require("Crowdsale.sol");
+
+module.exports = function(deployer, network, accounts) {
+  const startTime = web3.eth.getBlock(web3.eth.blockNumber).timestamp + 1 * 60 * 60 * 24 * 30; // one second in the future
+  const endTime = startTime + (86400 * 20); // 20 days
+  const rate = new web3.BigNumber(5);
+  const wallet = accounts[1];
+  const goal = web3.toWei(250, 'ether');
+  const cap = web3.toWei(400, 'ether');
+
+  deployer.deploy(Crowdsale, startTime, endTime, rate, wallet);
+  deployer.deploy(JotaCoin);
+  deployer.link(JotaCoin, JotaCoinCrowdsale);
+  console.log(startTime, endTime, rate, cap, wallet);
+  deployer.deploy(JotaCoinCrowdsale, startTime, endTime, rate, cap, wallet);
+
+};
+
+```
+
++++
+
+### Deploy contracts (continue)
+Deploy contract from test RPC to testnet (Rinkeby)
+
+```javascript
+module.exports = {
+    // See <http://truffleframework.com/docs/advanced/configuration>
+    // to customize your Truffle configuration!
+    networks: {
+        development: {
+            network_id: "*",
+            host: "localhost",
+            port: 8545,   // Different than the default below
+            gas: 6712388,
+            gasPrice: 65000000000,
+        },
+        rinkeby: {
+            host: "localhost",
+            port: 8545,
+            network_id: "4", // Rinkeby ID 4
+            from: "0x1f366a6ff3959b778f143c20244f7addf2a642ee", // account from which to deploy
+            gas: 6712388,
+            gasPrice: 65000000000,
+        }
+    },
+    rpc: {
+        host: "127.0.0.1",
+        port: 8545
+    }
+};
+```
++++
+
+### Deploy contracts (continue)
+Deploy contract from test RPC to testnet (Rinkeby)
+
+```javascript
+$ geth --datadir=./chaindata --rinkeby --rpc -rpcaddr 0.0.0.0 --rpcport "8545" --rpccorsdomain "*" --rpcapi "db,eth,net,web3,personal,network"
+$ /Applications/Ethereum\ Wallet.app/Contents/MacOS/Ethereum\ Wallet --rpc /Users/miguelvieira/Documents/rinkeby/chaindata/geth.ipc
+$ geth attach /Users/miguelvieira/Documents/rinkeby/chaindata/geth.ipc
+```
+
++++
+
+### Deploy contracts (continue)
+Finally in this tab of terminal run next command:
+
+```javascript
+$ eth.syncing
+```
+It can return something like this:
+
+```
+{
+ currentBlock: 13445,
+ highestBlock: 1604086,
+ knownStates: 32228,
+ pulledStates: 19524,
+ startingBlock: 0
+}
+```
+
+What means what last block was loaded or can return «<b>false</b>» what means that full chain was loaded.
++++
+
+### Deploy contracts (continue)
+Adding funds to a test account
+
+Go to https://www.rinkeby.io/#faucet
+
+Etherscan:
+Go to https://rinkeby.etherscan.io
+
++++
+
+### Deploy contracts (continue)
+Note that we are not deploying JotaCoin. This is because once JotaCoinCrowdsale deploys it will create JotaCoin. Now back to the terminal tab where you installed Truffle, run the commands:
+
+Finally in this tab of terminal run next command:
+```
+$ personal.unlockAccount("0xfb0ea2323b38cb18ac2759a6a0e55bb8ec7572ab")
+```
+
+Finally to deploy your contract, use command:
+
+```javascript
+$ truffle compile
+$ truffle migrate --network rinkeby
+```
+
++++
+
+### Deploy contracts (continue)
+Alright, let’s buy some GUS tokens.
+
+Run `$ truffle console`
+
+```
+// The account that will buy GUS tokens.
+> purchaser = web3.eth.accounts[2]
+```
+
+```
+// The address of the JTC token instance that was created when the crowdsale contract was deployed
+// assign the result of JotaCoinCrowdsale.deployed() to the variable crowdsale
+> JotaCoinCrowdsale.deployed().then(instance => { crowdsale = instance })
+> undefined
+
+> crowdsale.token().then(address => { tokenAddress = address } )
+> tokenAddress
+```
++++
+
+### Deploy contracts (continue)
+Alright, let’s buy some GUS tokens.
+
+
+```
+> jotaCoinInstance = JotaCoin.at(tokenAddress)
+
+// change token ownership to crowdsale so it is able to mint tokens during crowdsale
+> jotaCoinInstance.transferOwnership(crowdsale.address)
+```
+
+```
+// Now check the number of JTC tokens purchaser has. It should have 0
+> jotaCoinInstance.balanceOf(purchaser).then(balance => balance.toString(10))
+  '0'
+```
+
++++
+
+### Deploy contracts (continue)
+Buying JTC tokens
+
+```
+> jotaCoinCrowdsale.deployed().then(instance => instance.sendTransaction({ from: purchaser, value: web3.toWei(5, "ether")}))
+```
+
+```
+// Check the amount of JTC tokens for purchaser again. It should have some now.
+> jotaCoinInstance.balanceOf(purchaser).then(balance => purchaserJotaTokenBalance = balance.toString(10))
+'5000000000000000000000'
+```
+
+```
+// When we created our token we made it with 18 decimals, which the same as what ether has. That's a lot of zeros, let's display without the decimals:
+> web3.fromWei(purchaserJotaTokenBalance, "ether")
+'5000'
+
+```
+
+---
+
+### Extra
+Send ETH from geth console
+
+First, I list the accounts and then see how much ETH I have in the default account.
+```
+$ personal.listAccounts
+["0xfb0ea2323b38cb18ac2759a6a0e55bb8ec7572ab", "0x1f366a6ff3959b778f143c20244f7addf2a642ee"]
+
+$ web3.fromWei(eth.getBalance(eth.coinbase));
+3
+```
+
+Then I send 0.25 ETH to each account.
+```
+$ eth.sendTransaction({from:eth.coinbase, to:"0x1f366a6ff3959b778f143c20244f7addf2a642ee", value: web3.toWei(0.25, "ether")});
+  "0x225f0bab07a7782d8d45f1a1e57c7ee7e6c0796d46a7fb664a07dd00cc5a2d8f"
+```
+
+---
+
+## Questions ?
+### Miguel Vieira - eSolidar
