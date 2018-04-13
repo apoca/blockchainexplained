@@ -691,7 +691,16 @@ ERC stands for Ethereum Request for Comments
      event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
  }
 ```
+
+Token & Crowdsale:
+
+<ul class="lowernote">
+  <li> https://www.ethereum.org/token </li> 
+  <li> https://www.ethereum.org/crowdsale </li>  
+</ul>
+
 ---
+
 ### How to make an ICO (crowdsale) contract
 +++
 
