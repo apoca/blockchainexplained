@@ -180,7 +180,7 @@ Smart contract flow of data
 
 ### Smart Contracts 
 * Contracts can call other contracts 
-* 1024 max call stack depth
+* 1024 max call stack depth (vbuterin: Substitute call stack limit with child gas restriction)
 * Support Events
 * Contracts can purge themselves from the blockchain (OPCODE selfdestruct)
 
@@ -318,7 +318,7 @@ function _multiply(uint a, uint b) private pure returns (uint) {
 More about functions
 
 ```javascript
-  string greeting = "Whazaaa ?";
+  string greeting = "Oláaaa ?";
 
   function sayHello() public returns (string) {
       return greeting;
@@ -359,6 +359,9 @@ More on functions Modifiers
       owner = newOwner;
   }
 ```
+<p class="lowernote">
+Modifier Order Matters. If atStage is combined with timedTransitions, make sure that you mention it after the latter, so that the new stage is taken into account.
+</p>
 +++
 
 ### Solidity 
@@ -491,6 +494,64 @@ contract MyContract {
   }
 }
 ```
+
++++
+
+### Solidity 
+Require
+
+For that we use require. require makes it so that the function will throw an error and stop executing if some condition is not true:
+
+```javascript
+function sayHiToVitalik(string _name) public returns (string) {
+  // Compares if _name equals "Vitalik". Throws an error and exits if not true.
+  // (Side note: Solidity doesn't have native string comparison, so we
+  // compare their keccak256 hashes to see if the strings are equal)
+  require(keccak256(_name) == keccak256("Vitalik"));
+  // If it's true, proceed with the function:
+  return "Hi!";
+}
+```
+
+If you call this function with <b>sayHiToVitalik("Vitalik")</b>, it will return "Hi!". If you call it with any other input, it will throw an error and not execute.
+
+Thus <b>require</b> is quite useful for verifying certain conditions that must be true before running a function.
+
++++
+
+### Solidity 
+Storage vs Memory
+
+<b>Storage</b> refers to variables stored permanently on the blockchain. <b>Memory</b> variables are temporary, and are erased between external function calls to your contract. Think of it like your computer's hard disk vs RAM.
+
+```javascript
+pragma solidity ^0.4.19;
+
+import "./zombiefactory.sol";
+
+contract ZombieFeeding is ZombieFactory {
+
+  function feedAndMultiply(uint _zombieId, uint _targetDna) public {
+    require(msg.sender == zombieToOwner[_zombieId]);
+    Zombie storage myZombie = zombies[_zombieId];
+    // start here
+  }
+
+}
+```
+
+```javascript
+function getZombiesByOwner(address _owner) external view returns(uint[]) {
+    uint[] memory result = new uint[](ownerZombieCount[_owner]);
+    uint counter = 0;
+    for (uint i = 0; i < zombies.length; i++) {
+      if (zombieToOwner[i] == _owner) {
+        result[counter] = i;
+        counter++;
+      }
+    }
+```
+
 
 +++
 
